@@ -78,7 +78,7 @@ int main(int argc, char * argv[])
     
     double value;
     std::ofstream outfile;
-    outfile.open("Integrate.csv");
+    outfile.open("Integration.csv");
     double radius[9] = { 900000., 800000., 700000., 600000., 500000., 400000., 300000., 200000., 100000. }; 
     for(int div=0; div<6.; div++) {
         for(int i=0; i<9; i++) {
