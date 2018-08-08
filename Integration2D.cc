@@ -7,7 +7,12 @@
 
 double func(double * xx, double r, double R)
 {   
+    // x integral
     double val = 2.*M_PI*r*r*atan(sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])/sqrt(xx[0]*xx[0]-2.*xx[0]*R+R*R+xx[1]*xx[1]))/sqrt(xx[0]*xx[0]-2.*xx[0]*R+R*R+xx[1]*xx[1]);
+    
+    // z integral
+    //double val = M_PI*r*r*(atan((sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])+R)/sqrt(xx[0]*xx[0]))+atan((sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])-R)/sqrt(xx[0]*xx[0])))/sqrt(xx[0]*xx[0]+xx[1]*xx[1]);
+    
     //std::cout << " func return = " << val << std::endl;
     
     if(!std::isnan(val)) return val;
@@ -17,6 +22,7 @@ double func(double * xx, double r, double R)
 double integrate(double r, double R, double step, bool faster=false, bool verbose=true)
 {
     double xlo = -R;
+    //double xlo = 0.;
     double xhi = +R;
     double ylo, yhi;
     
@@ -27,13 +33,14 @@ double integrate(double r, double R, double step, bool faster=false, bool verbos
         std::cout << " Faster (?) = " << faster << std::endl;
     }
 
-    double integral = 0;
+    double integral = 0.;
     
     for(double xiter=xlo; xiter<=xhi; xiter+=step) {
         if(faster) { 
             if(xiter<0) continue;
         }
-        ylo = -sqrt(R*R-xiter*xiter);
+        //ylo = -sqrt(R*R-xiter*xiter);
+        ylo = 0.;
         yhi = +sqrt(R*R-xiter*xiter);
         for(double yiter=ylo; yiter<=yhi; yiter+=step) {
             double point[2] = { xiter, yiter };
@@ -43,9 +50,10 @@ double integrate(double r, double R, double step, bool faster=false, bool verbos
     }
     
     double factor = ( 4./3.*M_PI*R*R*R * 4.*M_PI );
-    std::cout << " detector radius = " << r << "\t integral = " << integral/factor*100. << "% " << std::endl;
+    integral *= 2.*100./factor;
+    std::cout << " detector radius = " << r << "\t integral = " << integral << "% " << std::endl;
 
-    return (integral/factor*100.);
+    return integral;
 
 }
 
@@ -68,6 +76,11 @@ int main(int argc, char * argv[])
                 std::stringstream ss;
                 ss << argv[i+1];
                 ss >> step;
+            }
+            if(std::string(argv[i])=="-v") {
+                std::stringstream ss;
+                ss << argv[i+1];
+                ss >> verbose;
             }
         }
     }
