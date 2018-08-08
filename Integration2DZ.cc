@@ -7,11 +7,8 @@
 
 double func(double * xx, double r, double R)
 {   
-    // x integral
-    double val = 2.*M_PI*r*r*atan(sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])/sqrt(xx[0]*xx[0]-2.*xx[0]*R+R*R+xx[1]*xx[1]))/sqrt(xx[0]*xx[0]-2.*xx[0]*R+R*R+xx[1]*xx[1]);
-    
     // z integral
-    //double val = M_PI*r*r*(atan((sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])+R)/sqrt(xx[0]*xx[0]))+atan((sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])-R)/sqrt(xx[0]*xx[0])))/sqrt(xx[0]*xx[0]+xx[1]*xx[1]);
+    double val = M_PI*r*r*(atan((sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])+R)/sqrt(xx[0]*xx[0]))+atan((sqrt(R*R-xx[0]*xx[0]-xx[1]*xx[1])-R)/sqrt(xx[0]*xx[0])))/sqrt(xx[0]*xx[0]+xx[1]*xx[1]);
     
     //std::cout << " func return = " << val << std::endl;
     
@@ -21,8 +18,7 @@ double func(double * xx, double r, double R)
 
 double integrate(double r, double R, double step, bool faster=false, bool verbose=true)
 {
-    double xlo = -R;
-    //double xlo = 0.;
+    double xlo = 0.;
     double xhi = +R;
     double ylo, yhi;
     
@@ -39,7 +35,6 @@ double integrate(double r, double R, double step, bool faster=false, bool verbos
         if(faster) { 
             if(xiter<0) continue;
         }
-        //ylo = -sqrt(R*R-xiter*xiter);
         ylo = 0.;
         yhi = +sqrt(R*R-xiter*xiter);
         for(double yiter=ylo; yiter<=yhi; yiter+=step) {
@@ -50,11 +45,10 @@ double integrate(double r, double R, double step, bool faster=false, bool verbos
     }
     
     double factor = ( 4./3.*M_PI*R*R*R * 4.*M_PI );
-    integral *= 2.*100./factor;
+    integral *= 4.*100./factor;
     std::cout << " detector radius = " << r << "\t integral = " << integral << "% " << std::endl;
 
     return integral;
-
 }
 
 int main(int argc, char * argv[])
