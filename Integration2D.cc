@@ -53,7 +53,7 @@ int main(int argc, char * argv[])
 {
     double r = 0.62035;
     double R = 6371000;
-    double step = 10000;
+    double step = 1000;
     bool faster = false; 
     bool verbose = true;
     

@@ -57,7 +57,7 @@ int main(int argc, char * argv[])
     double R = 6371000;
     double step = 10000;
     bool faster = false; 
-    bool verbose = false;
+    bool verbose = true;
     
     if((argc-1)%2==0 && argc>1) {
         for(int i=1; i<argc; i+=2) {
@@ -74,20 +74,20 @@ int main(int argc, char * argv[])
         }
     }
     
-    //integrate(r,R,step,faster);
+    integrate(r,R,step,faster,verbose);
     
-    double value;
-    std::ofstream outfile;
-    outfile.open("Integration.csv");
-    double radius[9] = { 900000., 800000., 700000., 600000., 500000., 400000., 300000., 200000., 100000. }; 
-    for(int div=0; div<6.; div++) {
-        for(int i=0; i<9; i++) {
-            radius[i] /= 10.;
-            value = integrate(radius[i],R,step,faster,verbose);
-            outfile << radius[i] << "," << value << std::endl;
-        }
-    }
-    outfile.close();
+    //double value;
+    //std::ofstream outfile;
+    //outfile.open("Integration.csv");
+    //double radius[9] = { 900000., 800000., 700000., 600000., 500000., 400000., 300000., 200000., 100000. }; 
+    //for(int div=0; div<6.; div++) {
+    //    for(int i=0; i<9; i++) {
+    //        radius[i] /= 10.;
+    //        value = integrate(radius[i],R,step,faster,verbose);
+    //        outfile << radius[i] << "," << value << std::endl;
+    //    }
+    //}
+    //outfile.close();
 
     return 0;
 }
