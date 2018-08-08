@@ -4,6 +4,8 @@ CXXFLAGS = -Wall -fPIC
 MC_TARGET = MonteCarlo
 INT_TARGET = Integration
 
+all: $(INT_TARGET)3D $(INT_TARGET)2DX $(INT_TARGET)2DZ $(MC_TARGET)
+
 Integration3D: $(INT_TARGET)3D.cc
 	$(CXX) $(CXXFLAGS) $(INT_TARGET)3D.cc -o $(INT_TARGET)3D 
 
