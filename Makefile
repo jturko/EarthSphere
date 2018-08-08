@@ -14,5 +14,5 @@ MonteCarlo: $(MC_TARGET).cc
 	$(CXX) $(CXXFLAGS) $(MC_TARGET).cc -o $(MC_TARGET) 
 
 clean:
-	rm -f $(INT_TARGET) $(MC_TARGET)
+	rm -f $(INT_TARGET) $(INT_TARGET)2D $(MC_TARGET)
 
